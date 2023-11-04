@@ -1,5 +1,5 @@
 # El Arte de la Terminal
-![portada](https://www.corecode.school/_next/image?url=https%3A%2F%2Fmedia.corecode.school%2Fblog%2Fterminal-hacker.jpg&w=2048&q=75)
+![portada](https://github.com/ByChokeYT/El_Arte_de_la_Terminal/blob/main/Recursos/El%20arte%20de%20la%20terminal.gif?raw=true)
 [![github](https://img.shields.io/badge/GitHub-ByChoke-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/ByChokeYT)
 
 # Temario
