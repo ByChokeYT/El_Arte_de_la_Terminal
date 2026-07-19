@@ -10,8 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/modules.css">
+    <link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
     <div class="app-container">
@@ -102,9 +105,9 @@
             <!-- Window Title Bar -->
             <div class="terminal-titlebar">
                 <div class="terminal-controls">
-                    <span class="control close-btn" id="btn-close-modal"></span>
-                    <span class="control minimize"></span>
-                    <span class="control maximize"></span>
+                    <span class="control close-btn" id="btn-close-modal" title="Cerrar" aria-label="Cerrar cuestionario"></span>
+                    <span class="control minimize" title="Minimizar" aria-label="Minimizar ventana"></span>
+                    <span class="control maximize" title="Maximizar" aria-label="Maximizar ventana"></span>
                 </div>
                 <span class="terminal-title" id="modal-title">terminal - cuestionario</span>
             </div>
@@ -172,7 +175,7 @@
         </div>
     </div>
 
-    <!-- Custom Script -->
-    <script src="app.js"></script>
+    <!-- Modular JS (ES Modules) -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

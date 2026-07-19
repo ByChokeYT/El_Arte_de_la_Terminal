@@ -1,0 +1,292 @@
+/* Modules Grid Section */
+.modules-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #ffffff;
+}
+
+.section-title i {
+    color: var(--primary);
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Module Card Style */
+.module-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.module-card:hover:not(.locked) {
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.15);
+}
+
+.module-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    transition: background var(--transition-normal);
+}
+
+.module-card.unlocked::after {
+    background: linear-gradient(90deg, var(--cyan), var(--primary));
+}
+
+.module-card.completed::after {
+    background: var(--green);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.module-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+}
+
+.module-card.unlocked .module-tag {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--cyan);
+}
+
+.module-card.completed .module-tag {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--green);
+}
+
+.status-badge {
+    font-size: 1rem;
+}
+
+.status-badge.locked-icon {
+    color: var(--color-text-dim);
+}
+
+.status-badge.unlocked-icon {
+    color: var(--cyan);
+    animation: subtleFloat 3s ease-in-out infinite;
+}
+
+.status-badge.completed-icon {
+    color: var(--green);
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.card-body h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.card-body p {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 1rem;
+}
+
+.card-progress {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+}
+
+.module-card.unlocked .card-progress {
+    color: var(--color-text-muted);
+}
+
+/* Buttons */
+.btn {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.btn-primary:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-main);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+.btn-cmd {
+    background: var(--green);
+    color: #030712;
+    box-shadow: 0 4px 10px var(--green-glow);
+}
+
+.btn-cmd:hover {
+    background: #059669;
+    box-shadow: 0 6px 15px var(--green-glow);
+}
+
+/* Locked Card Styling */
+.module-card.locked {
+    background: var(--bg-locked);
+    border-color: rgba(255, 255, 255, 0.02);
+    cursor: not-allowed;
+}
+
+.module-card.locked .card-body h3,
+.module-card.locked .card-body p,
+.module-card.locked .card-footer {
+    opacity: 0.4;
+}
+
+.module-card.locked::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 9, 14, 0.15);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Achievements Badges grid */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 1rem;
+}
+
+.badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    position: relative;
+    cursor: help;
+}
+
+.badge-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px dashed rgba(255, 255, 255, 0.15);
+    color: var(--color-text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all var(--transition-normal);
+}
+
+.badge-item.unlocked .badge-icon {
+    background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 80%);
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.badge-item.active-level .badge-icon {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.badge-name {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--color-text-dim);
+    max-width: 80px;
+}
+
+.badge-item.unlocked .badge-name {
+    color: var(--color-text-muted);
+}
