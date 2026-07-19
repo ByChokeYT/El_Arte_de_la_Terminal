@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección: Manuales y Alias (man, alias)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link rel="stylesheet" href="../css/terminal.css">
+    <link rel="stylesheet" href="../css/tutorial.css">
+    <script>
+        window.lessonConfig = {
+            id: "man_alias",
+            title: "Manuales y Alias (man, alias)",
+            nextUrl: "../tutorial.html",
+            expectedCommand: "alias c=clear",
+            feedback: "¡Genial! Los alias te ahorran mucho tiempo de escritura de comandos largos."
+        };
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-area-wrapper">
+                <div class="logo-area">
+                    <div class="terminal-icon"><span class="pulse">>_</span></div>
+                    <div>
+                        <h1>Curso de Bash</h1>
+                        <p class="subtitle">Aprende y practica la terminal de Linux paso a paso</p>
+                    </div>
+                </div>
+            </div>
+            <div class="global-progress-card">
+                <div class="progress-info">
+                    <div class="stat-group"><span class="label">NIVEL</span><span class="value" id="user-level">1</span></div>
+                    <div class="stat-group"><span class="label">PUNTOS XP</span><span class="value" id="user-xp">0</span></div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+                <span class="progress-text" id="progress-text">Progreso de Lección</span>
+            </div>
+        </header>
+
+        <div class="practice-header">
+            <a href="../tutorial.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver al Curso</a>
+            <div class="breadcrumb-trail">
+                <span>Comandos Básicos</span> &gt; <span class="cyan-text">Manuales y Alias (man, alias)</span>
+            </div>
+            <a href="#" id="btn-next-lesson" class="btn btn-primary" style="display: none;">Siguiente Lección <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="tutorial-layout">
+            <article class="theory-panel">
+                <div class="theory-content">
+                    <h1>Manuales de Comandos y Alias (man, alias)</h1>
+                    <p>Aprende a buscar información sobre los comandos disponibles y a optimizar tu flujo de trabajo creando tus propios atajos de teclado.</p>
+                    
+                    <h2>Consultar Manuales (<code>man</code>)</h2>
+                    <p>El comando <code>man</code> abre la ayuda técnica para cualquier comando de la consola.</p>
+                    <pre><code>man ls</code></pre>
+
+                    <h2>Crear Atajos Personalizados (<code>alias</code>)</h2>
+                    <p>Un <code>alias</code> te permite asignar un nombre corto a un comando complejo.</p>
+                    <pre><code>alias ll="ls -la"</code></pre>
+                </div>
+            </article>
+
+            <section class="console-panel">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <span class="challenge-badge">Desafío Activo</span>
+                        <span class="challenge-xp">+20 XP</span>
+                    </div>
+                    <p class="challenge-instruction">
+                        Define un alias llamado 'c' que sirva para limpiar la pantalla ejecutando el comando 'clear' (alias c=clear).
+                    </p>
+                </div>
+
+                <div class="terminal-box">
+                    <div class="terminal-topbar">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot close"></span>
+                            <span class="terminal-dot minimize"></span>
+                            <span class="terminal-dot maximize"></span>
+                        </div>
+                        <span class="terminal-title">bash --version 5.2 (simulado)</span>
+                    </div>
+                    <div class="terminal-screen" id="terminal-screen">
+                        <div class="terminal-line text-muted">Escribe tu comando en el campo de abajo y presiona Enter.</div>
+                    </div>
+                    <div class="terminal-helper-buttons">
+                        <button id="btn-clear-console" class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 8px;"><i class="fa-solid fa-trash-can"></i> Limpiar Pantalla</button>
+                    </div>
+                    <div class="terminal-topbar" style="border-top: 1px solid rgba(255,255,255,0.05); padding: 12px 15px;">
+                        <div class="terminal-input-row">
+                            <span class="prompt-prefix" id="prompt-prefix">bychoke@terminal:~$</span>
+                            <input type="text" id="terminal-input" class="terminal-prompt-input" autocomplete="off" spellcheck="false" placeholder="Escribe tu comando...">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            <p>Curso de Bash © 2026. Diseñado para aprender y practicar comandos reales desde casa. Creado por ByChoke.</p>
+        </footer>
+    </div>
+    <div class="notification-overlay" id="notification-overlay" style="display: none;">
+        <div class="notification-card">
+            <div class="glow-circle"></div>
+            <div class="notification-icon-wrap"><i id="notification-icon" class="fa-solid fa-trophy"></i></div>
+            <h2 id="notification-title">¡LOGRO DESBLOQUEADO!</h2>
+            <h3 id="notification-name">Nombre</h3>
+            <p id="notification-desc">Descripción</p>
+            <button id="btn-close-notification" class="btn btn-primary">¡Excelente! <i class="fa-solid fa-thumbs-up"></i></button>
+        </div>
+    </div>
+    <script type="module" src="../js/tutorial_core.js?v=3"></script>
+</body>
+</html>

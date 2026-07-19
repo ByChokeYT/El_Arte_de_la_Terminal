@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección: Rutas y Navegación (cd, pwd)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link rel="stylesheet" href="../css/terminal.css">
+    <link rel="stylesheet" href="../css/tutorial.css">
+    <script>
+        window.lessonConfig = {
+            id: "cd_pwd",
+            title: "Rutas y Navegación (cd, pwd)",
+            nextUrl: "2_3_mkdir_touch.html",
+            expectedCommand: "pwd",
+            feedback: "¡Muy bien! 'pwd' (print working directory) te dice en qué directorio te encuentras en este momento."
+        };
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-area-wrapper">
+                <div class="logo-area">
+                    <div class="terminal-icon"><span class="pulse">>_</span></div>
+                    <div>
+                        <h1>Curso de Bash</h1>
+                        <p class="subtitle">Aprende y practica la terminal de Linux paso a paso</p>
+                    </div>
+                </div>
+            </div>
+            <div class="global-progress-card">
+                <div class="progress-info">
+                    <div class="stat-group"><span class="label">NIVEL</span><span class="value" id="user-level">1</span></div>
+                    <div class="stat-group"><span class="label">PUNTOS XP</span><span class="value" id="user-xp">0</span></div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+                <span class="progress-text" id="progress-text">Progreso de Lección</span>
+            </div>
+        </header>
+
+        <div class="practice-header">
+            <a href="../tutorial.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver al Curso</a>
+            <div class="breadcrumb-trail">
+                <span>Comandos Básicos</span> &gt; <span class="cyan-text">Rutas y Navegación (cd, pwd)</span>
+            </div>
+            <a href="#" id="btn-next-lesson" class="btn btn-primary" style="display: none;">Siguiente Lección <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="tutorial-layout">
+            <article class="theory-panel">
+                <div class="theory-content">
+                    <h1>Cambiar de Directorio y Ubicación Actual (cd, pwd)</h1>
+                    <p>Para navegar por el árbol de carpetas de tu servidor o computadora, usarás <code>cd</code> y <code>pwd</code>.</p>
+                    
+                    <h2>Imprimir Directorio Actual (<code>pwd</code>)</h2>
+                    <p>El comando <code>pwd</code> (Print Working Directory) devuelve la ruta absoluta desde la raíz de la carpeta en la que estás posicionado.</p>
+
+                    <h2>Cambiar de Directorio (<code>cd</code>)</h2>
+                    <p>El comando <code>cd</code> (Change Directory) cambia tu ubicación actual:</p>
+                    <ul>
+                        <li><code>cd ruta</code>: Cambia a una ruta absoluta o relativa.</li>
+                        <li><code>cd ..</code>: Sube un nivel al directorio padre.</li>
+                        <li><code>cd ~</code> (o solo <code>cd</code>): Regresa a tu carpeta personal o Home.</li>
+                        <li><code>cd -</code>: Regresa a la carpeta de trabajo anterior.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <section class="console-panel">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <span class="challenge-badge">Desafío Activo</span>
+                        <span class="challenge-xp">+20 XP</span>
+                    </div>
+                    <p class="challenge-instruction">
+                        Imprime la ruta absoluta del directorio de trabajo actual.
+                    </p>
+                </div>
+
+                <div class="terminal-box">
+                    <div class="terminal-topbar">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot close"></span>
+                            <span class="terminal-dot minimize"></span>
+                            <span class="terminal-dot maximize"></span>
+                        </div>
+                        <span class="terminal-title">bash --version 5.2 (simulado)</span>
+                    </div>
+                    <div class="terminal-screen" id="terminal-screen">
+                        <div class="terminal-line text-muted">Escribe tu comando en el campo de abajo y presiona Enter.</div>
+                    </div>
+                    <div class="terminal-helper-buttons">
+                        <button id="btn-clear-console" class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 8px;"><i class="fa-solid fa-trash-can"></i> Limpiar Pantalla</button>
+                    </div>
+                    <div class="terminal-topbar" style="border-top: 1px solid rgba(255,255,255,0.05); padding: 12px 15px;">
+                        <div class="terminal-input-row">
+                            <span class="prompt-prefix" id="prompt-prefix">bychoke@terminal:~$</span>
+                            <input type="text" id="terminal-input" class="terminal-prompt-input" autocomplete="off" spellcheck="false" placeholder="Escribe tu comando...">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            <p>Curso de Bash © 2026. Diseñado para aprender y practicar comandos reales desde casa. Creado por ByChoke.</p>
+        </footer>
+    </div>
+    <div class="notification-overlay" id="notification-overlay" style="display: none;">
+        <div class="notification-card">
+            <div class="glow-circle"></div>
+            <div class="notification-icon-wrap"><i id="notification-icon" class="fa-solid fa-trophy"></i></div>
+            <h2 id="notification-title">¡LOGRO DESBLOQUEADO!</h2>
+            <h3 id="notification-name">Nombre</h3>
+            <p id="notification-desc">Descripción</p>
+            <button id="btn-close-notification" class="btn btn-primary">¡Excelente! <i class="fa-solid fa-thumbs-up"></i></button>
+        </div>
+    </div>
+    <script type="module" src="../js/tutorial_core.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Bash - Portal de Aprendizaje</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/modules.css">
+    <link rel="stylesheet" href="css/terminal.css">
+    <link rel="stylesheet" href="css/tutorial.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area-wrapper">
+                <div class="logo-area">
+                    <div class="terminal-icon">
+                        <span class="pulse">>_</span>
+                    </div>
+                    <div>
+                        <h1>Curso de Bash</h1>
+                        <p class="subtitle">Aprende y practica la terminal de Linux paso a paso</p>
+                    </div>
+                </div>
+                <!-- Navigation Tab Bar -->
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-item"><i class="fa-solid fa-graduation-cap"></i> El Arte de la Terminal (Quiz)</a>
+                    <a href="tutorial.html" class="nav-item active"><i class="fa-solid fa-terminal"></i> Curso de Bash (Consola)</a>
+                </nav>
+            </div>
+            
+            <!-- Global Progress Tracker -->
+            <div class="global-progress-card">
+                <div class="progress-info">
+                    <div class="stat-group">
+                        <span class="label">NIVEL</span>
+                        <span class="value" id="user-level">1</span>
+                    </div>
+                    <div class="stat-group">
+                        <span class="label">PUNTOS XP</span>
+                        <span class="value" id="user-xp">0</span>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0% Completado</span>
+            </div>
+        </header>
+
+        <!-- Dynamic Portal Views Container -->
+        <main class="tutorial-main-content">
+            
+            <!-- VIEW 1: HERO & MODULES GRID (Main Page Dashboard) -->
+            <div id="view-dashboard" class="portal-view">
+                <!-- Hero Section -->
+                <section class="tutorial-hero">
+                    <div class="hero-glow"></div>
+                    <div class="hero-info">
+                        <h2>Domina la Consola desde Cero 🚀</h2>
+                        <p>Aprende los fundamentos del shell de Linux, comandos de navegación, filtros de texto y automatizaciones mediante scripting con nuestra consola simulada integrada en cada lección.</p>
+                        <div class="hero-actions">
+                            <button id="btn-start-first-lesson" class="btn btn-primary"><i class="fa-solid fa-play"></i> Comenzar Curso</button>
+                            <a href="#modules-title" class="btn btn-secondary"><i class="fa-solid fa-list-check"></i> Ver Temario</a>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat-card">
+                            <i class="fa-solid fa-book-open cyan-text"></i>
+                            <div>
+                                <span class="stat-num" id="stat-completed-lessons">0/19</span>
+                                <span class="stat-lbl">Lecciones Completadas</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <i class="fa-solid fa-award yellow-text"></i>
+                            <div>
+                                <span class="stat-num" id="stat-unlocked-badges">0/4</span>
+                                <span class="stat-lbl">Logros Obtenidos</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <h2 id="modules-title" class="section-title"><i class="fa-solid fa-cubes"></i> Módulos de Aprendizaje</h2>
+                <!-- Modules Grid -->
+                <div class="modules-grid" id="tutorial-modules-grid">
+                    <!-- Loaded dynamically from JS -->
+                </div>
+            </div>
+
+            <!-- VIEW 2: SUBTOPICS LIST (Sub-dashboard of selected module) -->
+            <div id="view-subtopics" class="portal-view" style="display: none;">
+                <div class="subtopics-header">
+                    <button class="btn btn-secondary btn-back-to-dashboard"><i class="fa-solid fa-arrow-left"></i> Volver al Temario</button>
+                    <div class="subtopics-title-area">
+                        <h2 id="subtopics-mod-title">Nombre del Módulo</h2>
+                        <p id="subtopics-mod-desc">Descripción del módulo.</p>
+                    </div>
+                </div>
+                <div class="subtopics-grid" id="subtopics-grid">
+                    <!-- Loaded dynamically from JS -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Curso de Bash © 2026. Diseñado para aprender y practicar comandos reales desde casa. Creado por ByChoke.</p>
+        </footer>
+    </div>
+
+    <!-- Modular JS Scripts -->
+    <script type="module" src="js/tutorial_hub.js?v=3"></script>
+</body>
+</html>

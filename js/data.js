@@ -14,28 +14,28 @@ export const MODULES = [
         id: "fundamentos",
         title: "Fundamentos",
         summary: "Redirecciones, tuberías, administración de trabajos, SSH, permisos y comandos Unix básicos.",
-        questionsCount: 3,
+        questionsCount: 4,
         icon: "fa-solid fa-code"
     },
     {
         id: "uso-diario",
         title: "Uso diario",
         summary: "Atajos de teclado en Bash, alias, comandos anteriores, subshells y expansion de variables.",
-        questionsCount: 3,
+        questionsCount: 4,
         icon: "fa-solid fa-keyboard"
     },
     {
         id: "procesamiento",
         title: "Procesamiento de archivos y datos",
         summary: "Búsqueda avanzada, manipulación de formatos (JSON/CSV), awk, sed y ordenamiento de bytes.",
-        questionsCount: 3,
+        questionsCount: 4,
         icon: "fa-solid fa-file-csv"
     },
     {
         id: "depuracion",
         title: "Depuración del sistema",
         summary: "Diagnóstico de red, CPU, memoria, procesos, JSM/JVM, sockets y depuración de llamadas al sistema.",
-        questionsCount: 3,
+        questionsCount: 4,
         icon: "fa-solid fa-bug"
     },
     {
@@ -56,7 +56,7 @@ export const MODULES = [
         id: "moderna",
         title: "Terminal Moderna (Modern Unix)",
         summary: "La generación de herramientas Rust/Go: bat, eza, fd, ripgrep, zoxide y emuladores modernos.",
-        questionsCount: 3,
+        questionsCount: 4,
         icon: "fa-solid fa-rocket"
     }
 ];
@@ -124,6 +124,16 @@ export const QUESTIONS = {
             ],
             correct: 0,
             hint: "Se utiliza el comando de 'disk usage' con la opción '-h' (human-readable) y '-s' (summary)."
+        },
+        {
+            text: "¿Cómo puedes verificar rápidamente si un puerto de red (por ejemplo, google.com:80) está abierto usando únicamente Bash sin herramientas como netcat o telnet?",
+            options: [
+                "Usando la redirección virtual 'exec 3<>/dev/tcp/google.com/80'",
+                "Con el comando nativo 'ping -p 80 google.com'",
+                "Abriendo el puerto mediante 'ssh -p 80 google.com'"
+            ],
+            correct: 0,
+            hint: "El sistema de archivos virtual de Bash mapea `/dev/tcp/host/port` directamente a sockets TCP."
         }
     ],
     "uso-diario": [
@@ -156,6 +166,16 @@ export const QUESTIONS = {
             ],
             correct: 1,
             hint: "Pone el carácter '#' al principio de tu comando interactivo en Bash."
+        },
+        {
+            text: "¿Cómo puedes implementar una búsqueda interactiva y fuzzy para moverte rápidamente por los directorios de tu sistema usando fzf?",
+            options: [
+                "Creando un alias cd=\"fzf\"",
+                "Creando una función personalizada en tu shell que busque directorios con 'find' y pase el resultado a 'fzf +m' para luego hacer cd",
+                "Usando el comando integrado cd-fuzzy nativo de Unix"
+            ],
+            correct: 1,
+            hint: "Mediante una función de shell puedes pasar la lista de directorios encontrados por 'find' a 'fzf' y ejecutar cd con el resultado seleccionado."
         }
     ],
     procesamiento: [
@@ -188,6 +208,16 @@ export const QUESTIONS = {
             ],
             correct: 1,
             hint: "Viene de la palabra 'shuffle' (mezclar)."
+        },
+        {
+            text: "Si tienes una respuesta de API JSON y quieres extraer solo las propiedades 'id' y 'name' formateadas como un nuevo objeto por cada elemento, ¿cuál filtro de jq utilizarías?",
+            options: [
+                "jq '.[] | {id: .id, name: .name}'",
+                "jq --extract=id,name",
+                "jq '.id + .name'"
+            ],
+            correct: 0,
+            hint: "Utilizas la proyección de llaves {prop: .prop} iterando con el operador .[]"
         }
     ],
     depuracion: [
@@ -220,6 +250,16 @@ export const QUESTIONS = {
             ],
             correct: 0,
             hint: "Es el archivo que contiene información detallada sobre la CPU."
+        },
+        {
+            text: "¿Qué comando curl usarías para auditar de forma precisa la latencia de una API desglosando los tiempos de DNS, handshake TLS y el TTFB?",
+            options: [
+                "curl -v -t latency https://api.com",
+                "curl -s -o /dev/null -w \"DNS: %{time_namelookup}s\\nTTFB: %{time_starttransfer}s\\n\" https://api.com",
+                "curl --profile-time=all https://api.com"
+            ],
+            correct: 1,
+            hint: "Utilizas la opción `-w` (write-out) pasando variables de tiempo formateadas como `%{time_namelookup}` y `%{time_starttransfer}`."
         }
     ],
     "one-liners": [
@@ -316,6 +356,16 @@ export const QUESTIONS = {
             ],
             correct: 1,
             hint: "Tiene como logo una nave espacial y está escrito en Rust."
+        },
+        {
+            text: "¿Qué herramienta moderna basada en texto (TUI) te permite interactuar visualmente con Git para commits, ramas y fusiones sin salir de la terminal?",
+            options: [
+                "git-gui",
+                "lazygit",
+                "tig"
+            ],
+            correct: 1,
+            hint: "Es el TUI interactivo más popular actualmente y empieza con 'lazy' (perezoso en inglés)."
         }
     ]
 };

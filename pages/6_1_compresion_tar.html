@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección: Compresión (zip, unzip, tar)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link rel="stylesheet" href="../css/terminal.css">
+    <link rel="stylesheet" href="../css/tutorial.css">
+    <script>
+        window.lessonConfig = {
+            id: "compresion_tar",
+            title: "Compresión (zip, unzip, tar)",
+            nextUrl: "../tutorial.html",
+            expectedCommand: "tar -czvf codigo.tar.gz src/",
+            feedback: "¡Buenísimo! Las banderas significan: -c (crear), -z (gzip), -v (verbose) y -f (archivo destino)."
+        };
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-area-wrapper">
+                <div class="logo-area">
+                    <div class="terminal-icon"><span class="pulse">>_</span></div>
+                    <div>
+                        <h1>Curso de Bash</h1>
+                        <p class="subtitle">Aprende y practica la terminal de Linux paso a paso</p>
+                    </div>
+                </div>
+            </div>
+            <div class="global-progress-card">
+                <div class="progress-info">
+                    <div class="stat-group"><span class="label">NIVEL</span><span class="value" id="user-level">1</span></div>
+                    <div class="stat-group"><span class="label">PUNTOS XP</span><span class="value" id="user-xp">0</span></div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+                <span class="progress-text" id="progress-text">Progreso de Lección</span>
+            </div>
+        </header>
+
+        <div class="practice-header">
+            <a href="../tutorial.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver al Curso</a>
+            <div class="breadcrumb-trail">
+                <span>Compresión y Empaquetado</span> &gt; <span class="cyan-text">Compresión (zip, unzip, tar)</span>
+            </div>
+            <a href="#" id="btn-next-lesson" class="btn btn-primary" style="display: none;">Siguiente Lección <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="tutorial-layout">
+            <article class="theory-panel">
+                <div class="theory-content">
+                    <h1>Compresión y Empaquetado (zip, unzip, tar)</h1>
+                    <p>Aprende a empaquetar y comprimir múltiples archivos en uno solo.</p>
+                    
+                    <h2>Manejo de archivos ZIP (<code>zip</code>, <code>unzip</code>)</h2>
+                    <ul>
+                        <li><code>zip -r backup.zip carpeta/</code>: Comprime recursivamente.</li>
+                        <li><code>unzip backup.zip</code>: Descomprime.</li>
+                    </ul>
+
+                    <h2>Empaquetar y Comprimir en Linux (<code>tar</code>)</h2>
+                    <p>Combina <code>tar</code> (empaquetador) y <code>gzip</code> (compresor) para generar ficheros <code>.tar.gz</code>:</p>
+                    <ul>
+                        <li><code>tar -czvf codigo.tar.gz src/</code>: Crea un contenedor comprimido.</li>
+                        <li><code>tar -xzvf codigo.tar.gz</code>: Extrae el contenedor comprimido.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <section class="console-panel">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <span class="challenge-badge">Desafío Activo</span>
+                        <span class="challenge-xp">+20 XP</span>
+                    </div>
+                    <p class="challenge-instruction">
+                        Crea un archivo empaquetado y comprimido con gzip llamado 'codigo.tar.gz' a partir de la carpeta 'src/'.
+                    </p>
+                </div>
+
+                <div class="terminal-box">
+                    <div class="terminal-topbar">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot close"></span>
+                            <span class="terminal-dot minimize"></span>
+                            <span class="terminal-dot maximize"></span>
+                        </div>
+                        <span class="terminal-title">bash --version 5.2 (simulado)</span>
+                    </div>
+                    <div class="terminal-screen" id="terminal-screen">
+                        <div class="terminal-line text-muted">Escribe tu comando en el campo de abajo y presiona Enter.</div>
+                    </div>
+                    <div class="terminal-helper-buttons">
+                        <button id="btn-clear-console" class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 8px;"><i class="fa-solid fa-trash-can"></i> Limpiar Pantalla</button>
+                    </div>
+                    <div class="terminal-topbar" style="border-top: 1px solid rgba(255,255,255,0.05); padding: 12px 15px;">
+                        <div class="terminal-input-row">
+                            <span class="prompt-prefix" id="prompt-prefix">bychoke@terminal:~$</span>
+                            <input type="text" id="terminal-input" class="terminal-prompt-input" autocomplete="off" spellcheck="false" placeholder="Escribe tu comando...">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            <p>Curso de Bash © 2026. Diseñado para aprender y practicar comandos reales desde casa. Creado por ByChoke.</p>
+        </footer>
+    </div>
+    <div class="notification-overlay" id="notification-overlay" style="display: none;">
+        <div class="notification-card">
+            <div class="glow-circle"></div>
+            <div class="notification-icon-wrap"><i id="notification-icon" class="fa-solid fa-trophy"></i></div>
+            <h2 id="notification-title">¡LOGRO DESBLOQUEADO!</h2>
+            <h3 id="notification-name">Nombre</h3>
+            <p id="notification-desc">Descripción</p>
+            <button id="btn-close-notification" class="btn btn-primary">¡Excelente! <i class="fa-solid fa-thumbs-up"></i></button>
+        </div>
+    </div>
+    <script type="module" src="../js/tutorial_core.js?v=3"></script>
+</body>
+</html>
