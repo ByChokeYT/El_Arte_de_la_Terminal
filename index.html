@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Arte de la Terminal - Hub Interactivo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="terminal-icon">
+                    <span class="pulse">>_</span>
+                </div>
+                <div>
+                    <h1>El Arte de la Terminal</h1>
+                    <p class="subtitle">Domina la línea de comandos a través del juego y la práctica</p>
+                </div>
+            </div>
+            
+            <!-- Global Progress Tracker -->
+            <div class="global-progress-card">
+                <div class="progress-info">
+                    <div class="stat-group">
+                        <span class="label">NIVEL</span>
+                        <span class="value" id="user-level">1</span>
+                    </div>
+                    <div class="stat-group">
+                        <span class="label">PUNTOS XP</span>
+                        <span class="value" id="user-xp">0</span>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0% Completado</span>
+            </div>
+        </header>
+
+        <!-- Main Layout Grid -->
+        <main class="main-layout">
+            <!-- Grid of Course Modules -->
+            <section class="modules-section">
+                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Módulos de Aprendizaje</h2>
+                <div class="modules-grid" id="modules-grid">
+                    <!-- Modules will be injected by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Sidebar with Achievements and Stats -->
+            <aside class="sidebar-section">
+                <!-- Achievements / Medals -->
+                <div class="sidebar-card achievements-card">
+                    <h3><i class="fa-solid fa-trophy"></i> Logros Desbloqueados</h3>
+                    <div class="badges-grid" id="badges-grid">
+                        <!-- Badges injected by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Global Stats -->
+                <div class="sidebar-card stats-card">
+                    <h3><i class="fa-solid fa-chart-simple"></i> Estadísticas</h3>
+                    <ul class="stats-list">
+                        <li>
+                            <span class="stat-label">Preguntas Correctas:</span>
+                            <span class="stat-value" id="stat-correct">0</span>
+                        </li>
+                        <li>
+                            <span class="stat-label">Intentos Totales:</span>
+                            <span class="stat-value" id="stat-attempts">0</span>
+                        </li>
+                        <li>
+                            <span class="stat-label">Racha de Aciertos:</span>
+                            <span class="stat-value" id="stat-streak">0 🔥</span>
+                        </li>
+                    </ul>
+                    <div class="reset-area">
+                        <button id="btn-reset" class="btn btn-danger"><i class="fa-solid fa-arrow-rotate-left"></i> Reiniciar Progreso</button>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>El Arte de la Terminal © 2026. Basado en "The Art of Command Line". Creado por ByChoke.</p>
+        </footer>
+    </div>
+
+    <!-- Terminal Quiz Modal / Simulator -->
+    <div class="modal-overlay" id="quiz-modal" style="display: none;">
+        <div class="terminal-modal">
+            <!-- Window Title Bar -->
+            <div class="terminal-titlebar">
+                <div class="terminal-controls">
+                    <span class="control close-btn" id="btn-close-modal"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+                <span class="terminal-title" id="modal-title">terminal - cuestionario</span>
+            </div>
+            
+            <!-- Terminal Workspace -->
+            <div class="terminal-body">
+                <!-- Header output -->
+                <div class="terminal-output-header">
+                    <p class="green-text">El Arte de la Terminal [Versión 2.0.0]</p>
+                    <p class="dim-text">Simulador de desafíos de terminal interactiva. Resuelve para desbloquear.</p>
+                    <p class="dim-text">----------------------------------------------------------------------</p>
+                </div>
+
+                <!-- Current Question Output -->
+                <div class="terminal-output-area">
+                    <div class="question-container">
+                        <div class="question-header">
+                            <span class="prompt-user">bychoke@terminal:~$</span>
+                            <span class="question-number" id="question-progress">Pregunta 1 de 3</span>
+                        </div>
+                        <p class="question-text" id="question-text">¿Cómo listarías los archivos ordenados por fecha?</p>
+                    </div>
+
+                    <!-- Options Area (for Multiple Choice) -->
+                    <div class="options-container" id="options-container">
+                        <!-- Options injected by JS -->
+                    </div>
+
+                    <!-- Text input area (for exact command typing, if needed) -->
+                    <div class="input-container" id="input-container" style="display: none;">
+                        <span class="prompt-user">bychoke@terminal:~$</span>
+                        <input type="text" id="cmd-input" placeholder="Escribe tu comando aquí..." autocomplete="off" spellcheck="false">
+                        <button id="btn-submit-cmd" class="btn btn-cmd">Enviar</button>
+                    </div>
+
+                    <!-- Feedback message -->
+                    <div class="feedback-area" id="feedback-area" style="display: none;">
+                        <!-- Feedback content injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="terminal-actions">
+                    <button id="btn-hint" class="btn btn-secondary"><i class="fa-solid fa-lightbulb"></i> Obtener Pista</button>
+                    <button id="btn-next-question" class="btn btn-primary" style="display: none;">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas (for celebrations) -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Fullscreen Unlock/Level Up Notification Overlay -->
+    <div class="notification-overlay" id="notification-overlay" style="display: none;">
+        <div class="notification-card">
+            <div class="glow-circle"></div>
+            <div class="notification-icon-wrap">
+                <i id="notification-icon" class="fa-solid fa-trophy"></i>
+            </div>
+            <h2 id="notification-title">¡LOGRO DESBLOQUEADO!</h2>
+            <h3 id="notification-name">Ninja de la Terminal</h3>
+            <p id="notification-desc">Completaste el módulo de fundamentos de comandos.</p>
+            <button id="btn-close-notification" class="btn btn-primary">¡Excelente! <i class="fa-solid fa-thumbs-up"></i></button>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="app.js"></script>
+</body>
+</html>

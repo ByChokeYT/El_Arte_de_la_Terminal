@@ -11,15 +11,16 @@
 - [Depuración del sistema](#depuración-del-sistema)
 - [One-liners](#one-liners)
 - [Obscuro pero útil](#osbcuro-pero-útil)
+- [Terminal Moderna (Modern Unix)](#terminal-moderna-modern-unix)
 - [Solo para OS X](#solo-para-os-x)
-- [Solo para Windows](#solo-windows)
+- [Solo para Windows](#solo-para-windows)
 - [Más recursos](#más-recursos)
 - [Advertencia](#advertencia)
 
 
 La fluidez en el terminal es una destreza a menudo abandonada y considerada arcaica, pero ésta mejora tu flexibilidad y productividad como ingeniero de formas obvias y sutiles. Esta es una selección de notas y consejos para usar el terminal que encontramos útiles al trabajar en Linux. Algunos consejos son elementales y algunos bastante específicos, sofisticados y oscuros. Esta página no es larga, pero si puedes usar y recordar todos los puntos aquí mostrados, sabrás un montón.
 
-Este trabajo es el resultado de mucho tiempo y dedicación [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/https://paypal.me/bychoke?country.x=CL&locale.x=es_XC)
+Este trabajo es el resultado de mucho tiempo y dedicación [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/bychoke?country.x=CL&locale.x=es_XC)
 
 
 ## Meta
@@ -27,7 +28,7 @@ Este trabajo es el resultado de mucho tiempo y dedicación [![PayPal](https://im
 Alcance:
 
 - Esta guía es tanto para principiantes como para experimentados. Los objetivos son *diversidad* (todo importa), *especificidad* (dar ejemplos concretos del caso más común), y *concisión* (evitar cosas que no son esenciales o insignificantes que puedas buscar fácilmente en otro lugar). Cada consejo es esencial en alguna situación o significativamente puede ahorrar tiempo comparado con otras alternativas.
-- Está escrita para Linux, con excepción de la secciones "[Solo para OS X](#os-x-only)" y "[Solo para Windows](#solo-windows)". Muchos de los otros puntos aplican o pueden ser instalados en otros Unices o OS X (o incluso Cygwin).
+- Está escrita para Linux, con excepción de las secciones "[Solo para OS X](#solo-para-os-x)" y "[Solo para Windows](#solo-para-windows)". Muchos de los otros puntos aplican o pueden ser instalados en otros Unices o OS X (o incluso Cygwin).
 - Se centra en Bash interactivo, aunque muchos de los consejos aplican para otros shells y al Bash scripting por lo general.
 - Incluye tanto comandos "estándar" Unix así como los que requieren instalaciones de paquetes especiales -- siempre que sean lo suficientemente importantes para merecer su inclusión.
 
@@ -76,7 +77,7 @@ Notas:
 
 - Para ver los últimos comandos, `history`. También existen abreviaciones, tales como, `!$` (último argumento) y `!!` último comando, aunque son fácilmente remplazados con **ctrl-r** y **alt-.**.
 
-- Para volver al directorio principal con `cd`. Accede a los archivos relativos a tu directorio principal con el prefijo `~` (ej. `~/.bashrc`). En scripts `h`refierete al directorio principal con `$HOME`.
+- Para volver al directorio principal con `cd`. Accede a los archivos relativos a tu directorio principal con el prefijo `~` (ej. `~/.bashrc`). En scripts refiérete al directorio principal con `$HOME`.
 
 - Para volver al directorio de trabajo previo: `cd -`.
 
@@ -102,9 +103,9 @@ Notas:
 
 - Consulta `uptime` o `w` para conocer cuánto tiempo el sistema ha estado corriendo.
 
-- Usa `alias` para crear atajos para comandos comúnmente usados. Por ejemplo, `alias ll="las -latr"` crea el alias `ll`
+- Usa `alias` para crear atajos para comandos comúnmente usados. Por ejemplo, `alias ll="ls -latr"` crea el alias `ll`
 
-- En Bash scripts, usa `set -x` (o su variantes `set -v`, que registra las entradas sin procesar, incluyendo variables sin expander y comantarios) para depurar la salida. Usa el modo estricto al menos que tengas una buena razón para no hacerlo: Usa `set -e` para abortar en caso de errores (códigos de salida distintos a cero). Usa `set -u` para detectar uso de variables no definidas. Considera `set -o pipefail` también, para los errores con pipes, también (estudiar mas sobre este como un tema delicado). Para scripts más complejos, usa también `trap`. en EXIT o ERR. Un hábito útil es para comenzar un script como este, el cual detectará y abortará con errores comunes e imprimirá un mensaje:
+- En Bash scripts, usa `set -x` (o sus variantes `set -v`, que registra las entradas sin procesar, incluyendo variables sin expandir y comentarios) para depurar la salida. Usa el modo estricto a menos que tengas una buena razón para no hacerlo: Usa `set -e` para abortar en caso de errores (códigos de salida distintos a cero). Usa `set -u` para detectar uso de variables no definidas. Considera `set -o pipefail` también para los errores con pipes (estudiar más sobre esto como un tema delicado). Para scripts más complejos, usa también `trap` en EXIT o ERR. Un hábito útil es comenzar un script como este, el cual detectará y abortará con errores comunes e imprimirá un mensaje:
 ```bash
     set -euo pipefail
     trap "echo 'error: Falló del Script: ver arriba comando que falló'" ERR
@@ -119,7 +120,7 @@ Notas:
 
 - En Bash, considera que hay muchas formas de expansión de variables. Verificar la existencia de una variable: `${name:?error message}`. Por ejemplo, si un script Bash requiere un único argumento, solo escribe `input_file=${1:?usage: $0 input_file}`. Expansión aritmética: `i=$(( (i + 1) % 5 ))`. Secuencias: `{1..10}`. Reducción de cadenas de texto: `${var%suffix}` y `${var#prefix}`. Por ejemplo si `var=foo.pdf`, entonces `echo ${var%.pdf}.txt` imprime `foo.txt`.
 
-- Utilizando la expansión de corchetes `{`...`}` puede reducir el tener que retipear un texto similar y automatizar conbinaciones de elementos. Esto es útil en ejemplos como `mv foo.{txt,pdf} some-dir` (el cual mueve ambos archivos), `cp somefile{,.bak}` (el cual se expandirá a `cp somefile somefile.bak`) o `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (el cual se expandirá en todas las posibles conbinaciones y creará un árbol de directorios).
+- Utilizando la expansión de corchetes `{`...`}` puede reducir el tener que retipear un texto similar y automatizar combinaciones de elementos. Esto es útil en ejemplos como `mv foo.{txt,pdf} some-dir` (el cual mueve ambos archivos), `cp somefile{,.bak}` (el cual se expandirá a `cp somefile somefile.bak`) o `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (el cual se expandirá en todas las posibles combinaciones y creará un árbol de directorios).
 
 - La salida de un comando puede ser tratado como un archivo por medio de `<(some command)`. Por ejemplo, comparar el `/etc/hosts` local con uno remoto:
 ```sh
@@ -132,11 +133,11 @@ Notas:
 
 - Usa `man ascii` para una buena tabla ASCII con valores hexadecimal y decimales. Para información de codificación general, `man unicode`, `man utf-8`, y `man latin1` son de utilidad.
 
-- Usa `screen` o [`tmux`](https://tmux.github.io/) para multiplexar la pantalla, especialmente útil en sesiones ssh remotas y para desconectar y reconectar a una sesión. `byobu` puede mejorar la pantalla o tmux proporcionando mayor información y gestión ás sencilla. Una alternativa más minimalista para persistencia de la sesión solo sería `dtach`.
+- Usa `screen` o [`tmux`](https://tmux.github.io/) para multiplexar la pantalla, especialmente útil en sesiones ssh remotas y para desconectar y reconectar a una sesión. `byobu` puede mejorar la pantalla o tmux proporcionando mayor información y gestión más sencilla. Una alternativa más minimalista para persistencia de la sesión solo sería `dtach`.
 
 - En ssh, saber cómo hacer un port tunnel con `-L` o `-D` (y de vez en cuando `-R`) es útil, Ej. para acceder a sitios web desde un servidor remoto.
 
-- Puede ser útil hacer algunas optimizaciones a su configuración ssh; por ejemplo, `~/.ssh/config`, contiene la configuración para evitar desconexiones en ciertos entornos de red, utiliza compresión (cual es útil con scp sobre conexiones con un bajo ancho de banda), y la multiplexión de canales para el mismo servidor con un archivo de control local:
+- Puede ser útil hacer algunas optimizaciones a su configuración ssh; por ejemplo, `~/.ssh/config`, contiene la configuración para evitar desconexiones en ciertos entornos de red, utiliza compresión (la cual es útil con scp sobre conexiones con un bajo ancho de banda), y la multiplexión de canales para el mismo servidor con un archivo de control local:
 ```
       TCPKeepAlive=yes
       ServerAliveInterval=15
@@ -156,7 +157,7 @@ Notas:
       stat -c '%A %a %n' /etc/timezone
 ```
 
-- Para selección interactiva de valores desde la salida de otro comando, use [`percol`](https://github.com/mooz/percol) o [`fzf`](https://github.com/junegunn/fzf).
+- Para selección interactiva de valores desde la salida de otro comando, usa [`percol`](https://github.com/mooz/percol) o [`fzf`](https://github.com/junegunn/fzf).
 
 - Para la interacción con archivos basados en la salida de otro comando (como `git`), use `fpp` ([PathPicker](https://github.com/facebook/PathPicker)).
 
@@ -184,7 +185,7 @@ Notas:
 
 - Para archivos Excel o CSV, [csvkit](https://github.com/onyxfish/csvkit) proporciona `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, etc.
 
-- Para Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) es conveniente y [`s4cmd`](https://github.com/bloomreach/s4cmd) es el mas rápido. [`aws`](https://githu<b.com/aws/aws-cli) de Amazon y el mejorado [`saws`](https://github.com/donnemartin/saws) son esenciales para otras tareas relacionadas al AWS.
+- Para Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) es conveniente y [`s4cmd`](https://github.com/bloomreach/s4cmd) es el más rápido. [`aws`](https://github.com/aws/aws-cli) de Amazon y el mejorado [`saws`](https://github.com/donnemartin/saws) son esenciales para otras tareas relacionadas al AWS.
 
 - Conoce acerca de `sort` y `uniq`, incluyendo las opciones de uniq `-u` y `-d` -- ver one-liners más abajo. Ver también `comm`
 
@@ -203,11 +204,11 @@ Notas:
       perl -pi.bak -e 's/old-string/new-string/g' my-files-*.txt
 ```
 
-- Para renombrar multiples y/o buscar y remplazar dentro de archivos, intenta [`repren`](https://github.com/jlevy/repren). (En algunos casos el comando `rename` también permite multiples renombramientos, pero sea cuidadoso ya que esta funcionalidad no es igual en todas las distribuciones de Linux.)
+- Para renombrar múltiples y/o buscar y reemplazar dentro de archivos, intenta [`repren`](https://github.com/jlevy/repren). (En algunos casos el comando `rename` también permite múltiples renombres, pero sea cuidadoso ya que esta funcionalidad no es igual en todas las distribuciones de Linux.)
 ```sh
       # Renombramiento completo de archivos, carpetas y contenidos foo -> bar:
       repren --full --preserve-case --from foo --to bar .
-      # Recuperar archivos de respaldo cualquier.bak -> cualquier:
+      # Recuperar archivos de respaldo cualquiera.bak -> cualquiera:
       repren --renames --from '.*)\.bak' --to '\1' *.bak
       # Igual que arriba, utilizando rename, si esta disponible:
       rename 's/\.bak$//' *.bak
@@ -224,15 +225,15 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - Si alguna vez necesitas escribir un tab literal en una línea de comandos en Bash (Ej. para el argumento -t de ordenar), presiona **ctrl-v** **[Tab]** o escribe `$'\t'` (El último es mejor porque puedes copiarlo/pegarlo).
 
-- Las herramientas estándar para reparar el código fuente son `diff` y `patch`. Consulta también `diffstat` para resumen estadístico de una diff y `sdiff` para un diff puesto lado a lado. Considera `diff -r` trabaja con directorios por completo. Usa `diff -r tree1 tree2 | diffstat` para el resumen de cambios. Urilizá `vimdiff` para comparar y editar archivos.
+- Las herramientas estándar para reparar el código fuente son `diff` y `patch`. Consulta también `diffstat` para resumen estadístico de una diff y `sdiff` para un diff puesto lado a lado. Considera `diff -r` para trabajar con directorios por completo. Usa `diff -r tree1 tree2 | diffstat` para el resumen de cambios. Usa `vimdiff` para comparar y editar archivos.
 
-- Para archivos binarios, usa `hd`, `hexdeump` or `xxd` para volcados hexdecimales simples y `bvi` o `biew` para edición de binario.
+- Para archivos binarios, usa `hd`, `hexdump` o `xxd` para volcados hexadecimales simples y `bvi` o `biew` para edición binaria.
 
 - También para archivos binarios, `strings` (además de `grep`, etc.) permite encontrar fragmentos de texto.
 
-- Para diffs binaria (compresión delta), usa `xdelta3`.
+- Para diffs binarias (compresión delta), usa `xdelta3`.
 
-- Para convertir la codificación del texto, probar `iconv`. O `uconv` para uso más avanzado; este soporta algunos elementos Unicode avanzados. Por ejemplo, este comando coloca en minúsculas y remueve todas los acentos (por su expansión y colocándolos):
+- Para convertir la codificación del texto, prueba `iconv`. O `uconv` para uso más avanzado; este soporta algunos elementos Unicode avanzados. Por ejemplo, este comando coloca en minúsculas y remueve todos los acentos (por su expansión y colocándolos):
 ```sh
       uconv -f utf-8 -t utf-8 -x '::Any-Lower; ::Any-NFD; [:Nonspacing Mark:] >; ::Any-NFC; ' < input.txt > output.txt
 ```
@@ -256,7 +257,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - Para conocer el estado de la memoria, ejecuta y entiende la salida de `free` y `vmstat`. En particular, ten en cuenta que el valor "cached" es mantenido en memoria por el kernel de Linux como un archivo de cache, por lo que efectivamente cuenta como valor para "free".
 
-- El sistema de depuración de Java es harina de otro costal, pero un truco simple en las JSM de Oracle y otros consta en que puedes ejecutar `kill -3 <pid>` y una traza completa y un resumen del montículo "heap summary" (incluyendo del detalle de la colección de basura generacional, la cual puede ser altamente informativa) serán descargados al stderr/logs. Las herramientas `jps`, `jstat`, `jstack`, `jmap` del JDK son útiles. [SJK tools](https://github.com/aragozin/jvm-tools) son más avanzadas.
+- El sistema de depuración de Java es harina de otro costal, pero un truco simple en las JVM de Oracle y otros consiste en que puedes ejecutar `kill -3 <pid>` y una traza completa y un resumen del montículo "heap summary" (incluyendo el detalle de la colección de basura generacional, la cual puede ser altamente informativa) serán descargados al stderr/logs. Las herramientas `jps`, `jstat`, `jstack`, `jmap` del JDK son útiles. [SJK tools](https://github.com/aragozin/jvm-tools) son más avanzadas.
 
 - Usa [`mtr`](http://www.bitwizard.nl/mtr/) como un mejor traceroute para identificar los problemas en la red.
 
@@ -296,7 +297,7 @@ Algunos ejemplos de comandos reunidos:
       cat a b b | sort | uniq -u > c   # c es el conjunto diferencia a - b
 ```
 
-- Usa `grep . *` para rápidamente examinar el contenido de todos los archivos de un directorio (para que cada línea este emparejada con  con el nombre de archivo), o `head -100 *` (para que cada archivo tenga un encabezado). Esto puede se útil para directorios llenos con ajustes de configuración como aquellos en `/sys`, `/proc`, `/etc`.
+- Usa `grep . *` para rápidamente examinar el contenido de todos los archivos de un directorio (para que cada línea esté emparejada con el nombre de archivo), o `head -100 *` (para que cada archivo tenga un encabezado). Esto puede ser útil para directorios llenos con ajustes de configuración como aquellos en `/sys`, `/proc`, `/etc`.
 
 
 - Sumar todos los números en la tercera columna de un archivo de texto (esto es probablemente 3 veces más rápido y 3 veces menos código que el equivalente en Python):
@@ -420,7 +421,7 @@ Algunos ejemplos de comandos reunidos:
 
 - `ldd`: información de librería dinámica
 
-- `nm`: símbolos de archvios objeto
+- `nm`: símbolos de archivos objeto
 
 - `ab`: benchmarking de servidores web
 
@@ -479,6 +480,33 @@ Algunos ejemplos de comandos reunidos:
 - `fortune`, `ddate`, y `sl`: um, bien, depende de si considera las locomotoras de vapor y citas Zippy "útiles"
 
 
+## Terminal Moderna (Modern Unix)
+
+En los últimos años, ha surgido una nueva generación de herramientas de línea de comandos (muchas de ellas escritas en Rust o Go) que reescriben los comandos tradicionales de Unix. Estas herramientas están diseñadas para ser extremadamente rápidas, seguras, coloridas y mucho más amigables para el usuario. Aquí tienes las alternativas modernas recomendadas para tu día a día:
+
+- **`bat`** (Alternativa a `cat`): Un clon de `cat` con resaltado de sintaxis para múltiples lenguajes de programación, integración nativa con Git (muestra líneas añadidas/modificadas/eliminadas) y paginado inteligente.
+- **`eza`** (Alternativa a `ls`): El sucesor activo de `exa`. Es un reemplazo moderno de `ls` que utiliza colores de forma inteligente, muestra metadatos detallados, el estado de Git por archivo y tiene una hermosa vista en árbol interactiva (`eza --tree`).
+- **`fd`** (Alternativa a `find`): Una alternativa simple, rápida y amigable a `find`. Por defecto, ignora directorios y archivos ocultos, respeta las reglas de tu `.gitignore` y tiene una sintaxis de búsqueda intuitiva y coloreada.
+- **`ripgrep` (`rg`)** (Alternativa a `grep`): La herramienta de búsqueda de texto más rápida que existe. Busca patrones de forma recursiva en directorios respetando tu `.gitignore` de manera predeterminada. Es el motor detrás de la búsqueda en editores como VS Code.
+- **`zoxide`** (Alternativa a `cd`): Un comando de navegación inteligente que recuerda los directorios que visitas con más frecuencia. Te permite saltar a cualquier lugar escribiendo solo una parte del nombre (ej. `z proj` en lugar de `cd ~/Proyectos/mi-proyecto`).
+- **`tldr`** y **`cheat.sh`** (Alternativas a `man`): ¿Cansado de páginas de manual extensas y confusas? `tldr` ofrece páginas de ayuda simplificadas y enfocadas puramente en ejemplos prácticos de la comunidad. `cheat.sh` permite consultar hojas de trucos interactivas vía `curl cheat.sh/tar`.
+- **`btop`** (Alternativa a `top`/`htop`): Un monitor de recursos del sistema espectacular y moderno para la terminal, con gráficos interactivos para CPU, memoria, discos, red y procesos, todo en tiempo real y con soporte para ratón.
+- **`duf`** (Alternativa a `df`): Un visualizador de uso del disco que muestra información organizada en tablas coloridas y dinámicas, adaptándose automáticamente al tamaño de tu terminal.
+- **`dust`** (Alternativa a `du`): Una herramienta que te muestra visualmente en forma de árbol y gráfico de bloques dónde se está consumiendo el espacio en tu disco.
+- **`httpie`** o **`xh`** (Alternativas a `curl`): Clientes HTTP de línea de comandos modernos y fáciles de usar. Cuentan con colores por defecto, formateo automático de respuestas JSON y una sintaxis súper sencilla para enviar cabeceras y parámetros.
+- **`atuin`** (Alternativa a `history`): Reemplaza tu historial tradicional de shell con una base de datos SQLite. Permite búsquedas interactivas ultra rápidas (con interfaz difusa), estadísticas y sincronización segura del historial entre todas tus máquinas.
+
+### Configuración Recomendada (Setup)
+
+Un entorno de terminal premium no solo depende de los comandos, sino de cómo los visualizas:
+
+- **Emuladores de Terminal Modernos**: Deja atrás las terminales antiguas y usa emuladores de alto rendimiento acelerados por GPU. Las mejores opciones actuales son:
+  - **Kitty**: Altamente personalizable, muy rápido, y soporta ligaduras de fuentes y renderizado de imágenes.
+  - **Alacritty**: Un emulador minimalista enfocado puramente en la velocidad y el rendimiento bruto.
+  - **WezTerm**: Configurable con Lua, con multiplexor incorporado (similar a tmux) y excelente soporte multiplataforma.
+- **Prompt Dinámico y Rápido**: Instala **Starship** (`https://starship.rs/`), un prompt personalizable, extremadamente rápido y compatible con cualquier shell (Bash, Zsh, Fish). Muestra de forma inteligente la versión del lenguaje con el que estás trabajando, tu rama de Git actual, estados de error y mucho más, sin ralentizar tu terminal.
+
+
 ## Solo para OS X
 
 Estos son puntos relevantes *únicamente* para OS X.
@@ -501,10 +529,10 @@ Estos son puntos relevantes *únicamente* para OS X.
 
 Estos son puntos relevantes *únicamente* para Windows.
 
--En Windows 10, puedes usar [Bash de Ubuntu en Windows](https://msdn.microsoft.com/commandline/wsl/about) que proporciona un entorno familiar con la línea de comandos en Unix. Su lado positivo, este permite a los programas de Linux ejecutarse en Windows. Por otro lado este no soporta ejecutar de programas de Windows desde la línea de comandos Bash.
+- En Windows 10, puedes usar [Bash de Ubuntu en Windows](https://msdn.microsoft.com/commandline/wsl/about) que proporciona un entorno familiar con la línea de comandos en Unix. Por el lado positivo, este permite a los programas de Linux ejecutarse en Windows. Por otro lado, este no soporta ejecutar programas de Windows desde la línea de comandos Bash.
 - Accede al poder del shell de Unix en Microsoft Windows instalando [Cygwin](https://cygwin.com/). La mayoría de las cosas descritas en este documento funcionaran en su configuración por defecto.
 
-- Instala programas adicionales de Unix con el gestor de paquetes de Cygwin
+- Instala programas adicionales de Unix con el gestor de paquetes de Cygwin.
 
 - Usa `mintty` como tu línea de comando.
 
@@ -540,14 +568,14 @@ Con la excepción de tareas muy pequeñas, el código está escrito para que otr
 🤝🏻 ¡Te invito a explorar mis perfiles y redes sociales! Descubre más sobre mí y mis proyectos en mi perfil de GitHub, conéctate conmigo en Instagram y Twitter, y mantente actualizado/a con mis últimas publicaciones. ¡Espero verte allí!🌐
 
 [![github](https://img.shields.io/badge/GitHub-ByChoke-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/ByChokeYT)
-[![yotube](https://img.shields.io/badge/Yotube-ByChokeyt-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=101010)](https://github.com/ByChokeYT)
-[![Integran](https://img.shields.io/badge/Instagram-By.Choke-E4405F?style=for-the-badge&logo=Instagram&logoColor=white&labelColor=101010)](https://www.instagram.com/by.choke/)
-[![Twitter](https://img.shields.io/badge/Twitter-@ByChoke-1DA1F2?style=for-the-badge&logo=Twitter&logoColor=white&labelColor=101010)](https://www.instagram.com/by.choke/)
+[![youtube](https://img.shields.io/badge/YouTube-ByChokeYT-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=101010)](https://www.youtube.com/@ByChokeYT)
+[![instagram](https://img.shields.io/badge/Instagram-By.Choke-E4405F?style=for-the-badge&logo=instagram&logoColor=white&labelColor=101010)](https://www.instagram.com/by.choke/)
+[![twitter](https://img.shields.io/badge/Twitter-@ByChoke-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white&labelColor=101010)](https://x.com/ByChoke)
 
 
 <div>
   <h2><img src="https://media0.giphy.com/media/9rwJRYgxwMDk4ot2A5/giphy.gif?cid=6c09b9522f73dnxw8a6mcoi1b36pkbv9klrh2r1ay7c3knmb&ep=v1_stickers_related&rid=giphy.gif&ct=s" alt="Vault-boy" width="100"> Puedes brindarme tu apoyo a través de una donación💰</h2>
 </div>
 
-  [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/https://paypal.me/bychoke?country.x=CL&locale.x=es_XC)[![Patreon](https://img.shields.io/badge/Patreon-FFA500?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/ByChoke)
+  [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/bychoke?country.x=CL&locale.x=es_XC)[![Patreon](https://img.shields.io/badge/Patreon-FFA500?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/ByChoke)
   
